@@ -6,13 +6,13 @@ let NeoRouter = express.Router();
 
 /* GET neo listing. */
 NeoRouter.post('/', (req, res, next) => {
-  let neoNames = {};
+  let neoNames = [];
 
-  NasaNeoApi.findNeos(req.body.startDate, req.body.endDate).then((neoData) => {
+  NasaNeoApi.findNeos(req.body.dateStart, req.body.dateEnd).then((neoData) => {
     neoNames = NeoService.findCloseNeos(neoData.near_earth_objects, req.body.within.value);
-    res.send(neoNames);
+    res.send({ "asteroids": neoNames });
   }).catch((e) => {
-    res.send(e);
+    res.send({ "error": true });
   });
 });
 
