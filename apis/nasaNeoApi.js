@@ -1,12 +1,9 @@
 const https = require('https');
 
-let apiKey = 'bnJbjDk8V7iYgG25zzRZdb7Pzy5xtkZaxNfrbhnS';
-
 class NasaNeoApi {
     static findNeos(startDate, endDate) {
         let p = new Promise((resolve, reject) => {
-            let url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${startDate}&end_date=${endDate}&api_key=${apiKey}`
-            console.log('[NasaNeoApi] Calling url ' + url);
+            let url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${startDate}&end_date=${endDate}&api_key=${NasaNeoApi.apiKey}`;
             
             let rawResp = '';
             https.get(url, (res) => {
@@ -25,5 +22,6 @@ class NasaNeoApi {
         return p;
     };
 }
+NasaNeoApi.apiKey = 'bnJbjDk8V7iYgG25zzRZdb7Pzy5xtkZaxNfrbhnS';
 
 module.exports = NasaNeoApi;
