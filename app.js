@@ -1,6 +1,5 @@
 const express = require('express');
 const logger = require('morgan');
-const IndexRouter = require('./routes/index');
 const NeoRouter = require('./routes/neo');
 
 let app = express();
@@ -9,8 +8,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/', IndexRouter);
-app.use('/neo', NeoRouter);
+app.use('/', NeoRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -25,7 +23,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.send({ error: true });
+  res.send({ "error": true });
 });
 
 module.exports = app;
